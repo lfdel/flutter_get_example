@@ -37,8 +37,7 @@ class TodoScreen extends StatelessWidget {
             onPressed: () {
               Get.back();
             },
-            child: Text('CANCEL',
-                style: TextStyle(color: Colors.white, fontSize: 16)),
+            child: Text('CANCEL', style: TextStyle(color: Colors.white)),
           ),
           FlatButton(
             onPressed: () {
@@ -51,8 +50,7 @@ class TodoScreen extends StatelessWidget {
               }
               Get.back();
             },
-            child: Text(textButton(),
-                style: TextStyle(color: Colors.white, fontSize: 16)),
+            child: Text(textButton(), style: TextStyle(color: Colors.white)),
           )
         ],
       ),
@@ -65,11 +63,11 @@ class TodoScreen extends StatelessWidget {
               controller: textController,
               autofocus: true,
               decoration: InputDecoration(
-                hintText: "What do you want to accomplish ? ",
+                hintText: "What do you want to accomplish? ",
                 border: InputBorder.none,
                 focusedBorder: InputBorder.none,
               ),
-              style: TextStyle(fontSize: 25),
+              style: TextStyle(fontSize: 20),
               keyboardType: TextInputType.multiline,
               maxLines: 999,
             )),

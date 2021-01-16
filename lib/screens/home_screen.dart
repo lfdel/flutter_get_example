@@ -12,6 +12,14 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Todo list"),
+        actions: [
+          FlatButton(
+            onPressed: () {
+              Get.to(TodoScreen());
+            },
+            child: Text('NEW TODO', style: TextStyle(color: Colors.white)),
+          )
+        ],
       ),
       body: Container(
         child: Obx(() => ListView.separated(
@@ -67,12 +75,6 @@ class HomeScreen extends StatelessWidget {
                 ),
             separatorBuilder: (_, __) => Divider(),
             itemCount: todoController.todos.length)),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Get.to(TodoScreen());
-        },
-        child: Icon(Icons.add),
       ),
     );
   }
