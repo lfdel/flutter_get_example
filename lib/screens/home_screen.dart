@@ -27,12 +27,13 @@ class HomeScreen extends StatelessWidget {
                             color:
                                 Theme.of(context).textTheme.bodyText1.color)),
                   ),
-                  trailing: Checkbox(
+                  leading: Checkbox(
                     value: todoController.todos[index].done,
                     onChanged: (value) {
                       todoController.todos[index].done = value;
                     },
                   ),
+                  trailing: Icon(Icons.chevron_right),
                   onTap: () {},
                 ),
             separatorBuilder: (_, __) => Divider(),
