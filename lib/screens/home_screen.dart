@@ -45,12 +45,9 @@ class HomeScreen extends StatelessWidget {
                       todoController.todos[index].text,
                       style: (todoController.todos[index].done
                           ? TextStyle(
-                              color: Colors.red,
                               decoration: TextDecoration.lineThrough,
                             )
-                          : TextStyle(
-                              color:
-                                  Theme.of(context).textTheme.bodyText1.color)),
+                          : TextStyle(decoration: TextDecoration.none)),
                     ),
                     leading: Checkbox(
                       value: todoController.todos[index].done,

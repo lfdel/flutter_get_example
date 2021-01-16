@@ -8,7 +8,7 @@ void main() async {
   await GetStorage.init();
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
-    //home: TodoScreen(),
+    title: "Todos lfdel24@gmail.com",
     home: HomeScreen(),
   ));
 }

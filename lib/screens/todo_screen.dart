@@ -31,6 +31,31 @@ class TodoScreen extends StatelessWidget {
     }
 
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          FlatButton(
+            onPressed: () {
+              Get.back();
+            },
+            child: Text('CANCEL',
+                style: TextStyle(color: Colors.white, fontSize: 16)),
+          ),
+          FlatButton(
+            onPressed: () {
+              if (add()) {
+                todoController.todos.add(Todo(text: textController.text));
+              } else {
+                var todo = todoController.todos[index];
+                todo.text = textController.text;
+                todoController.todos[index] = todo;
+              }
+              Get.back();
+            },
+            child: Text(textButton(),
+                style: TextStyle(color: Colors.white, fontSize: 16)),
+          )
+        ],
+      ),
       body: Container(
         padding: EdgeInsets.all(8),
         child: Column(
@@ -40,7 +65,7 @@ class TodoScreen extends StatelessWidget {
               controller: textController,
               autofocus: true,
               decoration: InputDecoration(
-                hintText: "What do you want to accomplish? ",
+                hintText: "What do you want to accomplish ? ",
                 border: InputBorder.none,
                 focusedBorder: InputBorder.none,
               ),
@@ -48,34 +73,6 @@ class TodoScreen extends StatelessWidget {
               keyboardType: TextInputType.multiline,
               maxLines: 999,
             )),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                FlatButton(
-                  onPressed: () {
-                    Get.back();
-                  },
-                  child: Text('CANCEL',
-                      style: TextStyle(color: Colors.white, fontSize: 16)),
-                  color: Colors.red,
-                ),
-                FlatButton(
-                  onPressed: () {
-                    if (add()) {
-                      todoController.todos.add(Todo(text: textController.text));
-                    } else {
-                      var todo = todoController.todos[index];
-                      todo.text = textController.text;
-                      todoController.todos[index] = todo;
-                    }
-                    Get.back();
-                  },
-                  child: Text(textButton(),
-                      style: TextStyle(color: Colors.white, fontSize: 16)),
-                  color: Colors.green,
-                )
-              ],
-            )
           ],
         ),
       ),
