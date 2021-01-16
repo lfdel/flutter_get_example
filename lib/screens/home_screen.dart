@@ -15,32 +15,58 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Container(
         child: Obx(() => ListView.separated(
-            itemBuilder: (context, index) => ListTile(
-                  title: Text(
-                    todoController.todos[index].text,
-                    style: (todoController.todos[index].done
-                        ? TextStyle(
-                            color: Colors.red,
-                            decoration: TextDecoration.lineThrough,
-                          )
-                        : TextStyle(
-                            color:
-                                Theme.of(context).textTheme.bodyText1.color)),
+            itemBuilder: (context, index) => Dismissible(
+                  key: UniqueKey(),
+                  background: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 16),
+                      child: Icon(Icons.delete),
+                    ),
                   ),
-                  leading: Checkbox(
-                    value: todoController.todos[index].done,
-                    onChanged: (value) {
-                      var todo = todoController.todos[index];
-                      todo.done = value;
-                      todoController.todos[index] = todo;
+                  direction: DismissDirection.startToEnd,
+                  onDismissed: (onDismissed) {
+                    var todo = todoController.todos[index];
+                    todoController.todos.removeAt(index);
+                    Get.snackbar("Removed", todo.text,
+                        snackPosition: SnackPosition.BOTTOM,
+                        mainButton: FlatButton(
+                          onPressed: () {
+                            todoController.todos.insert(index, todo);
+                            if (Get.isSnackbarOpen) {
+                              Get.back();
+                            }
+                          },
+                          child: Text("Undo"),
+                        ));
+                  },
+                  child: ListTile(
+                    title: Text(
+                      todoController.todos[index].text,
+                      style: (todoController.todos[index].done
+                          ? TextStyle(
+                              color: Colors.red,
+                              decoration: TextDecoration.lineThrough,
+                            )
+                          : TextStyle(
+                              color:
+                                  Theme.of(context).textTheme.bodyText1.color)),
+                    ),
+                    leading: Checkbox(
+                      value: todoController.todos[index].done,
+                      onChanged: (value) {
+                        var todo = todoController.todos[index];
+                        todo.done = value;
+                        todoController.todos[index] = todo;
+                      },
+                    ),
+                    trailing: Icon(Icons.chevron_right),
+                    onTap: () {
+                      Get.to(TodoScreen(
+                        index: index,
+                      ));
                     },
                   ),
-                  trailing: Icon(Icons.chevron_right),
-                  onTap: () {
-                    Get.to(TodoScreen(
-                      index: index,
-                    ));
-                  },
                 ),
             separatorBuilder: (_, __) => Divider(),
             itemCount: todoController.todos.length)),
