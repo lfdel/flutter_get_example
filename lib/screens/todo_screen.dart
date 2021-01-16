@@ -4,12 +4,31 @@ import 'package:flutter_get_example/models/todo.dart';
 import 'package:get/get.dart';
 
 class TodoScreen extends StatelessWidget {
+  final int index;
+
+  TodoScreen({Key key, this.index}) : super(key: key);
+
   final textController = new TextEditingController(text: "");
+
+  bool add() {
+    return index == null;
+  }
+
+  String textButton() {
+    if (add()) {
+      return "ADD";
+    }
+    return "EDIT";
+  }
 
   @override
   Widget build(BuildContext context) {
     //
     final todoController = Get.find<TodoController>();
+
+    if (!add()) {
+      textController.text = todoController.todos[index].text;
+    }
 
     return Scaffold(
       body: Container(
@@ -42,10 +61,16 @@ class TodoScreen extends StatelessWidget {
                 ),
                 FlatButton(
                   onPressed: () {
-                    todoController.todos.add(Todo(text: textController.text));
+                    if (add()) {
+                      todoController.todos.add(Todo(text: textController.text));
+                    } else {
+                      var todo = todoController.todos[index];
+                      todo.text = textController.text;
+                      todoController.todos[index] = todo;
+                    }
                     Get.back();
                   },
-                  child: Text('ADD',
+                  child: Text(textButton(),
                       style: TextStyle(color: Colors.white, fontSize: 16)),
                   color: Colors.green,
                 )

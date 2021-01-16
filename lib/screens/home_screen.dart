@@ -34,7 +34,11 @@ class HomeScreen extends StatelessWidget {
                     },
                   ),
                   trailing: Icon(Icons.chevron_right),
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(TodoScreen(
+                      index: index,
+                    ));
+                  },
                 ),
             separatorBuilder: (_, __) => Divider(),
             itemCount: todoController.todos.length)),
