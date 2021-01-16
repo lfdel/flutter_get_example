@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class TodoScreen extends StatelessWidget {
   @override
@@ -24,7 +25,9 @@ class TodoScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 FlatButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Get.back();
+                  },
                   child: Text('CANCEL',
                       style: TextStyle(color: Colors.white, fontSize: 16)),
                   color: Colors.red,
