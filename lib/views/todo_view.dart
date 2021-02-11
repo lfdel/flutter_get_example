@@ -21,7 +21,7 @@ class TodoView extends StatelessWidget {
         appBar: AppBar(
           actions: [
             FlatButton(
-              onPressed: () => _onPressed(controller),
+              onPressed: () => controller.onPressed(_add(), index),
               child: Text(_textButton(), style: TextStyle(color: Colors.white)),
             )
           ],
@@ -58,20 +58,5 @@ class TodoView extends StatelessWidget {
       return "Add";
     }
     return "Edit";
-  }
-
-  void _onPressed(TodoController controller) {
-    if (_add()) {
-      controller.todos.add(Todo(
-          text: controller.textController.value.text,
-          date: DateTime.now().toString()));
-    } else {
-      var todo = controller.todos[index];
-      todo.text = controller.textController.value.text.trim();
-      todo.date = DateTime.now().toString();
-      controller.todos[index] = todo;
-    }
-    controller.textController.value = TextEditingController(text: "");
-    Get.back();
   }
 }

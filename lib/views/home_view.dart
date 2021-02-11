@@ -84,9 +84,7 @@ class _ListTile extends StatelessWidget {
       subtitle: Text(todo.dateFormatOne()),
       leading: Checkbox(
         value: todo.done,
-        onChanged: (value) {
-          _checkOnChanged(controller, index, value);
-        },
+        onChanged: (value) => controller.checkOnChanged(index, value),
       ),
       trailing: Icon(Icons.chevron_right),
       onTap: () {
@@ -112,10 +110,4 @@ void _remove(TodoController controller, int index) {
         },
         child: Text("Undo"),
       ));
-}
-
-void _checkOnChanged(TodoController controller, int index, bool value) {
-  var todo = controller.todos[index];
-  todo.done = value;
-  controller.todos[index] = todo;
 }

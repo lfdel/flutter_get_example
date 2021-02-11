@@ -25,6 +25,26 @@ class TodoController extends GetxController {
     super.onInit();
   }
 
+  void onPressed(bool add, int index) {
+    if (add) {
+      todos.add(Todo(
+          text: textController.value.text, date: DateTime.now().toString()));
+    } else {
+      var todo = todos[index];
+      todo.text = textController.value.text.trim();
+      todo.date = DateTime.now().toString();
+      todos[index] = todo;
+    }
+    textController.value = TextEditingController(text: "");
+    Get.back();
+  }
+
+  void checkOnChanged(int index, bool value) {
+    var todo = todos[index];
+    todo.done = value;
+    todos[index] = todo;
+  }
+
   @override
   void onClose() {
     textController?.close();
