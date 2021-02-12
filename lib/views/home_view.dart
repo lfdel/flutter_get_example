@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_get_example/controllers/todo_controller.dart';
 import 'package:flutter_get_example/str.dart';
+import 'package:flutter_get_example/views/custom_widgets.dart';
 import 'package:flutter_get_example/views/todo_view.dart';
 import 'package:get/get.dart';
 
@@ -10,15 +11,12 @@ class HomeView extends StatelessWidget {
     final controller = Get.put(TodoController());
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(Str.titleApp),
-          actions: [
-            FlatButton(
-              onPressed: () => Get.to(TodoView()),
-              child: Text('New', style: TextStyle(color: Colors.white)),
-            )
-          ],
-        ),
+        appBar: CustomWidgets().appBar(Text(Str.titleApp), [
+          FlatButton(
+            onPressed: () => Get.to(TodoView()),
+            child: Text('New', style: TextStyle(color: Colors.white)),
+          )
+        ]),
         body: _Body(controller: controller),
       ),
     );
@@ -71,8 +69,9 @@ class _ListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     var todo = controller.todos[index];
     return Container(
-      margin: EdgeInsets.only(top: 1),
-      color: Colors.purple[50],
+      margin: EdgeInsets.all(2),
+      decoration: BoxDecoration(
+          color: Colors.purple[50], borderRadius: BorderRadius.circular(20)),
       child: ListTile(
         title: Text(
           todo.text,

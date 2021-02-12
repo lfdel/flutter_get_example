@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_get_example/controllers/todo_controller.dart';
 import 'package:flutter_get_example/models/todo.dart';
+import 'package:flutter_get_example/views/custom_widgets.dart';
 import 'package:get/get.dart';
 
 class TodoView extends StatelessWidget {
@@ -18,14 +19,12 @@ class TodoView extends StatelessWidget {
 
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          actions: [
-            FlatButton(
-              onPressed: () => controller.onPressed(_add(), index),
-              child: Text(_textButton(), style: TextStyle(color: Colors.white)),
-            )
-          ],
-        ),
+        appBar: CustomWidgets().appBar(Text(''), [
+          FlatButton(
+            onPressed: () => controller.onPressed(_add(), index),
+            child: Text(_textButton(), style: TextStyle(color: Colors.white)),
+          )
+        ]),
         body: Container(
           padding: EdgeInsets.all(8),
           child: Column(
