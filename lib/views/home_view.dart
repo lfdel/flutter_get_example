@@ -36,14 +36,14 @@ class _Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Obx(() => ListView.separated(
+      child: Obx(() => ListView.builder(
           itemBuilder: (context, index) => Dismissible(
                 key: UniqueKey(),
                 background: Align(
                   alignment: Alignment.centerLeft,
                   child: Padding(
                     padding: EdgeInsets.only(left: 8),
-                    child: Icon(Icons.delete),
+                    child: Icon(Icons.delete, color: Colors.purple),
                   ),
                 ),
                 direction: DismissDirection.startToEnd,
@@ -55,7 +55,6 @@ class _Body extends StatelessWidget {
                   index: index,
                 ),
               ),
-          separatorBuilder: (_, __) => Divider(),
           itemCount: controller.todos.length)),
     );
   }
@@ -71,27 +70,31 @@ class _ListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var todo = controller.todos[index];
-    return ListTile(
-      title: Text(
-        todo.text,
-        style: (todo.done
-            ? TextStyle(
-                decoration: TextDecoration.lineThrough,
-                color: Colors.grey,
-              )
-            : TextStyle(decoration: TextDecoration.none)),
+    return Container(
+      margin: EdgeInsets.only(top: 1),
+      color: Colors.purple[50],
+      child: ListTile(
+        title: Text(
+          todo.text,
+          style: (todo.done
+              ? TextStyle(
+                  decoration: TextDecoration.lineThrough,
+                  color: Colors.grey,
+                )
+              : TextStyle(decoration: TextDecoration.none)),
+        ),
+        subtitle: Text(todo.dateFormatOne()),
+        leading: Checkbox(
+          value: todo.done,
+          onChanged: (value) => controller.checkOnChanged(index, value),
+        ),
+        trailing: Icon(Icons.chevron_right),
+        onTap: () {
+          Get.to(TodoView(
+            index: index,
+          ));
+        },
       ),
-      subtitle: Text(todo.dateFormatOne()),
-      leading: Checkbox(
-        value: todo.done,
-        onChanged: (value) => controller.checkOnChanged(index, value),
-      ),
-      trailing: Icon(Icons.chevron_right),
-      onTap: () {
-        Get.to(TodoView(
-          index: index,
-        ));
-      },
     );
   }
 }
